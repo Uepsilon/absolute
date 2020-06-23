@@ -2,7 +2,7 @@
 PROMPT=' $(_user_host)$(_current_path)$(git_prompt_info) $(_arrow) '
 
 # The right-hand prompt
-RPROMPT='$(_prompt_nvm)$(git_prompt_status) $(_battery_power)$(_return_status)'
+RPROMPT='$(_prompt_rvm)$(git_prompt_status) $(_battery_power)$(_return_status)'
 
 function _is_osx() {
   [[ "$OSTYPE" =~ ^darwin ]] || return 1
@@ -20,11 +20,11 @@ function _return_status() {
     echo " %{$fg_bold[red]%}%(?..↵)%{$reset_color%}"
 }
 
-function _prompt_nvm() {
-  local node_version=$(nvm current)
-  [[ -z "${node_version}" ]] || [[ ${node_version} = "none" ]] || [[ ${node_version} = "system" ]] && return
+function _prompt_rvm() {
+  local ruby_version=$(rvm current)
+  [[ -z "${ruby_version}" ]] || [[ ${ruby_version} = "none" ]] || [[ ${ruby_version} = "system" ]] && return
 
-  echo "%{$fg_bold[green]%}‹\U2B22 ${node_version:1}›%{$reset_color%}"
+  echo "%{$fg_bold[red]%}‹\U2B25 ${ruby_version:1}›%{$reset_color%}"
 }
 
 function _battery_power() {
@@ -43,8 +43,8 @@ function _battery_power() {
   fi
 
   [[ bat_percent -gt 0 ]] && local color=red
-  [[ bat_percent -gt 10 ]] && local color=yellow
-  [[ bat_percent -gt 30 ]] && local color=green
+  [[ bat_percent -gt 20 ]] && local color=yellow
+  [[ bat_percent -gt 40 ]] && local color=green
   echo " %{$fg_bold[$color]%}‹⚡$bat_percent%%›%{$reset_color%}"
 }
 
