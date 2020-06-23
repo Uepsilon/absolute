@@ -24,7 +24,7 @@ function _prompt_rvm() {
   local ruby_version=$(rvm current)
   [[ -z "${ruby_version}" ]] || [[ ${ruby_version} = "none" ]] || [[ ${ruby_version} = "system" ]] && return
 
-  echo "%{$fg_bold[red]%}‹\U2B25 ${ruby_version:1}›%{$reset_color%}"
+  echo "%{$fg_bold[red]%}‹\U2B25 ${ruby_version:5}›%{$reset_color%}"
 }
 
 function _battery_power() {
